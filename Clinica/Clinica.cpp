@@ -1,59 +1,6 @@
 #include "Clinica.h"
 #include <iostream>
 
-bool isNumeric(const std::string &str)
-{
-    for (char c : str)
-    {
-        if (!std::isdigit(c) && c != '.')
-        { // Verifica se o caractere é dígito ou ponto (para valores decimais)
-            return false;
-        }
-    }
-    return true;
-}
-
-// Função para cadastrar um novo paciente
-void Clinica::adicionarPaciente()
-{
-    std::string nome, cpf, dataNascimento, telefone, email, endereco;
-
-    std::cin.ignore(); // Limpar o buffer do cin
-
-    std::cout << "Nome: ";
-    std::getline(std::cin, nome);
-
-    std::cout << "CPF: ";
-    std::getline(std::cin, cpf);
-
-    // Verifica se já existe um paciente com o mesmo CPF
-    for (int i = 0; i < nPacientes; i++)
-    {
-        if (pacientes[i]->getCPF() == cpf)
-        {
-            std::cout << "Ja existe um paciente com este CPF.\n";
-            return; // Sai da função sem adicionar um novo paciente
-        }
-    }
-
-    std::cout << "Data de nascimento: ";
-    std::getline(std::cin, dataNascimento);
-
-    std::cout << "Telefone: ";
-    std::getline(std::cin, telefone);
-
-    std::cout << "Email: ";
-    std::getline(std::cin, email);
-
-    std::cout << "Endereco: ";
-    std::getline(std::cin, endereco);
-
-    // Cria um novo objeto Paciente e armazena no array de pacientes
-    pacientes[nPacientes] = new Paciente(nome, cpf, dataNascimento, telefone, email, endereco);
-    nPacientes++; // Incrementa o número de pacientes
-    std::cout << "Paciente adicionado na lista de pacientes.\n";
-}
-
 // Função para imprimir todos os pacientes cadastrados
 void Clinica::printarPacientes() const
 {
@@ -66,74 +13,8 @@ void Clinica::printarPacientes() const
     for (int i = 0; i < nPacientes; i++)
     {
         // Exibe o CPF e o nome de cada paciente
-        std::cout << "CPF: " << pacientes[i]->getCPF() << ", Nome: " << pacientes[i]->getNome() << "\n";
+        pacientes[i]->printarDados();
     }
-}
-
-// Função para cadastrar um novo profissional de saúde
-void Clinica::adicionarProfissional()
-{
-    std::string nome, cpf, telefone, email, registroProfissional, codigoEspecialidade;
-
-    std::cin.ignore(); // Limpar o buffer do cin
-
-    std::cout << "Nome: ";
-    std::getline(std::cin, nome);
-
-    std::cout << "CPF: ";
-    std::getline(std::cin, cpf);
-
-    // Verifica se já existe um profissional com o mesmo CPF
-    for (int i = 0; i < nProfissionais; i++)
-    {
-        if (profissionais[i]->getCPF() == cpf)
-        {
-            std::cout << "Ja existe um profissional com este CPF.\n";
-            return; // Sai da função sem adicionar um novo profissional
-        }
-    }
-
-    // Solicita o código da especialidade
-    std::cout << "Digite o codigo da especialidade: ";
-    std::cin >> codigoEspecialidade;
-
-    // Verifica se o código da especialidade existe
-    Especialidade *especialidadeEncontrada = nullptr;
-
-    for (int i = 0; i < nEspecialidades; i++)
-    {
-        if (especialidades[i]->getCodigo() == codigoEspecialidade)
-        {
-            especialidadeEncontrada = especialidades[i];
-            break; // Especialidade encontrada, sai do loop
-        }
-    }
-
-    // Se não encontrar a especialidade, retorna
-    if (especialidadeEncontrada == nullptr)
-    {
-        std::cout << "Nao foi encontrada uma especialidade com o codigo fornecido.\n";
-        return;
-    }
-
-    // Se encontrou a especialidade, atribui o nome da especialidade ao profissional
-    std::string especialidadeNome = especialidadeEncontrada->getNome();
-
-    // Solicita os demais dados do profissional
-    std::cout << "Telefone: ";
-    std::cin.ignore(); // Limpar o buffer
-    std::getline(std::cin, telefone);
-
-    std::cout << "Email: ";
-    std::getline(std::cin, email);
-
-    std::cout << "Registro Profissional: ";
-    std::getline(std::cin, registroProfissional);
-
-    // Cria um novo objeto ProfissionalSaude e armazena no array de profissionais
-    profissionais[nProfissionais] = new ProfissionalSaude(nome, cpf, especialidadeNome, telefone, email, registroProfissional);
-    nProfissionais++; // Incrementa o número de profissionais
-    std::cout << "Profissional adicionado com sucesso.\n";
 }
 
 // Função para imprimir todos os profissionais cadastrados
@@ -148,69 +29,8 @@ void Clinica::printarProfissionais() const
     for (int i = 0; i < nProfissionais; i++)
     {
         // Exibe o CPF e o nome de cada profissional
-        std::cout << "CPF: " << profissionais[i]->getCPF() << ", Nome: " << profissionais[i]->getNome() << "\n";
+        profissionais[i]->printarDados();
     }
-}
-
-// Função para adicionar uma nova consulta
-void Clinica::adicionarConsulta()
-{
-    std::string data, hora, cpfPaciente, cpfProfissional, sala, status;
-
-    std::cin.ignore(); // Limpar o buffer do cin
-
-    std::cout << "Data da consulta: ";
-    std::getline(std::cin, data);
-
-    std::cout << "Hora da consulta: ";
-    std::getline(std::cin, hora);
-
-    std::cout << "CPF do paciente: ";
-    std::getline(std::cin, cpfPaciente);
-
-    Paciente *paciente = nullptr;
-    for (int i = 0; i < nPacientes; i++)
-    {
-        if (pacientes[i]->getCPF() == cpfPaciente)
-        {
-            paciente = pacientes[i];
-            break;
-        }
-    }
-    if (!paciente)
-    {
-        std::cout << "Paciente nao encontrado.\n";
-        return;
-    }
-
-    std::cout << "CPF do profissional: ";
-    std::getline(std::cin, cpfProfissional);
-
-    ProfissionalSaude *profissional = nullptr;
-    for (int i = 0; i < nProfissionais; i++)
-    {
-        if (profissionais[i]->getCPF() == cpfProfissional)
-        {
-            profissional = profissionais[i];
-            break;
-        }
-    }
-    if (!profissional)
-    {
-        std::cout << "Profissional nao encontrado.\n";
-        return;
-    }
-
-    std::cout << "Sala da consulta: ";
-    std::getline(std::cin, sala);
-
-    std::cout << "Status da consulta: ";
-    std::getline(std::cin, status);
-
-    // Cria um novo objeto Consulta e adiciona ao array de consultas
-    consultas[nConsultas] = new Consulta(data, hora, *paciente, *profissional, sala, status);
-    nConsultas++; // Incrementa o número de consultas
-    std::cout << "Consulta adicionada com sucesso.\n";
 }
 
 // Função para imprimir todas as consultas cadastradas
@@ -224,13 +44,7 @@ void Clinica::printarConsultas() const
 
     for (int i = 0; i < nConsultas; i++)
     {
-        std::cout << "Consulta " << (i + 1) << ":\n";
-        std::cout << "Data: " << consultas[i]->getData() << "\n";
-        std::cout << "Hora: " << consultas[i]->getHora() << "\n";
-        std::cout << "Paciente CPF: " << consultas[i]->getPaciente().getNome() << "\n";
-        std::cout << "Profissional CPF: " << consultas[i]->getProfissional().getNome() << "\n";
-        std::cout << "Sala: " << consultas[i]->getSala() << "\n";
-        std::cout << "Status: " << consultas[i]->getStatus() << "\n\n";
+        consultas[nConsultas]->printarDados();
     }
 }
 
@@ -326,7 +140,7 @@ void Clinica::menuPaciente()
         switch (pacienteOpcao)
         {
         case 1:
-            adicionarPaciente();
+            Paciente::adicionarPaciente(pacientes, nPacientes);
             break;
         case 2:
             printarPacientes();
@@ -361,7 +175,7 @@ void Clinica::menuProfissional()
         switch (profissionalOpcao)
         {
         case 1:
-            adicionarProfissional();
+            ProfissionalSaude::adicionarProfissional(profissionais, nProfissionais, especialidades, nEspecialidades);
             break;
         case 2:
             printarProfissionais();
@@ -396,7 +210,7 @@ void Clinica::menuConsulta()
         switch (consultaOpcao)
         {
         case 1:
-            adicionarConsulta();
+            Consulta::adicionarConsulta(pacientes, nPacientes, profissionais, nProfissionais, consultas, nConsultas);
             break;
         case 2:
             printarConsultas();
@@ -414,76 +228,6 @@ void Clinica::menuConsulta()
     } while (consultaOpcao != 4);
 }
 
-void Clinica::adicionarEspecialidade()
-{
-    std::string nome, descricao, codigo, tempoStr, valorStr;
-    int tempo;
-    double valor;
-
-    std::cout << "Digite o nome da especialidade: ";
-    std::cin.ignore(); // Limpar o buffer de entrada
-    std::getline(std::cin, nome);
-
-    std::cout << "Digite a descricao da especialidade: ";
-    std::getline(std::cin, descricao);
-
-    std::cout << "Digite o codigo da especialidade: ";
-    std::cin >> codigo;
-
-    // Verifica se o código é válido
-    if (codigo.empty())
-    {
-        std::cout << "O codigo não pode ser vazio.\n";
-        return;
-    }
-
-    // Solicita o tempo médio de duração da consulta, garantindo que seja um número maior que 0
-    do
-    {
-        std::cout << "Digite o tempo medio de duração da consulta em minutos: ";
-        std::cin >> tempoStr;
-
-        if (!isNumeric(tempoStr))
-        {
-            std::cout << "Por favor, insira um numero valido para o tempo.\n";
-            continue;
-        }
-
-        tempo = std::stoi(tempoStr); // Converte a string para inteiro
-        if (tempo <= 0)
-        {
-            std::cout << "O tempo deve ser maior que 0.\n";
-        }
-
-    } while (tempo <= 0);
-
-    // Solicita o valor da consulta, garantindo que seja um número maior que 0
-    do
-    {
-        std::cout << "Digite o valor da consulta (maior que 0): ";
-        std::cin >> valorStr;
-
-        if (!isNumeric(valorStr))
-        {
-            std::cout << "Por favor, insira um número válido para o valor.\n";
-            continue;
-        }
-
-        valor = std::stod(valorStr); // Converte a string para double
-        if (valor <= 0)
-        {
-            std::cout << "O valor deve ser maior que 0.\n";
-        }
-
-    } while (valor <= 0);
-
-    // Cria uma nova especialidade com os dados fornecidos
-    especialidades[nEspecialidades] = new Especialidade(nome, descricao, codigo, tempo, valor);
-    nEspecialidades++;
-
-    std::cout << "Especialidade '" << nome << "' adicionada com sucesso.\n";
-}
-
 void Clinica::listarEspecialidades() const
 {
     if (nEspecialidades == 0)
@@ -496,11 +240,7 @@ void Clinica::listarEspecialidades() const
     for (int i = 0; i < nEspecialidades; i++)
     {
         Especialidade *especialidade = especialidades[i];
-        std::cout << i + 1 << ". "
-                  << "Nome: " << especialidade->getNome()
-                  << ", Codigo: " << especialidade->getCodigo()
-                  << ", Valor: R$ " << especialidade->getValor()
-                  << ", Tempo: " << especialidade->getTempo() << " minutos\n";
+        especialidade->printarDados();
     }
 }
 
@@ -520,7 +260,7 @@ void Clinica::menuEspecialidade()
         switch (especialidadeOpcao)
         {
         case 1:
-            adicionarEspecialidade();
+            Especialidade::adicionarEspecialidade(especialidades, nEspecialidades);
             break;
         case 2:
             listarEspecialidades();
@@ -533,6 +273,30 @@ void Clinica::menuEspecialidade()
             break;
         }
     } while (especialidadeOpcao != 3);
+}
+
+// Função para o submenu Especialidade
+void Clinica::menuEquipamento()
+{
+    return;
+}
+
+// Função para o submenu Especialidade
+void Clinica::menuSala()
+{
+    return;
+}
+
+// Função para o submenu Especialidade
+void Clinica::menuFornecedor()
+{
+    return;
+}
+
+// Função para o submenu Especialidade
+void Clinica::menuPagamento()
+{
+    return;
 }
 
 // Função para iniciar o sistema da clínica e exibir o menu principal
@@ -581,7 +345,18 @@ void Clinica::start()
         case 4: // Menu Especialidade
             menuEspecialidade();
             break;
-
+        case 5:
+            menuEquipamento();
+            break;
+        case 6:
+            menuSala();
+            break;
+        case 7:
+            menuFornecedor();
+            break;
+        case 8:
+            menuPagamento();
+            break;
         case 10:
             std::cout << "Saindo do sistema...\n";
             break;

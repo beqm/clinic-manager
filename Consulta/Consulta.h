@@ -28,6 +28,8 @@ public:
     std::string getNotas() const;
 
     void setStatus(const std::string &status);
+    static void adicionarConsulta(Paciente *pacientes[], int &nPacientes, ProfissionalSaude *profissionais[], int &nProfissionais, Consulta *consultas[], int &nConsultas);
+    void printarDados() const;
 };
 
 #endif

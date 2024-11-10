@@ -32,6 +32,9 @@ public:
     void definirTelefone(const std::string &telefone);
     void definirEmail(const std::string &email);
     void definirEndereco(const std::string &endereco);
+
+    void printarDados() const;
+    static void adicionarPaciente(Paciente *pacientes[], int &nPacientes);
 };
 
 #endif

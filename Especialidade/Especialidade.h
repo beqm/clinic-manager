@@ -31,7 +31,8 @@ public:
     void setValor(double valor);
 
     // Exibe as informações da especialidade (opcional para debug ou visualização)
-    void printarEspecialidade() const;
+    void printarDados() const;
+    static void adicionarEspecialidade(Especialidade *especialidades[], int &nEspecialidades);
 };
 
 #endif

@@ -2,7 +2,7 @@
 #define PROFISSIONALSAUDE_H
 
 #include <string>
-
+#include "../Especialidade/Especialidade.h"
 class ProfissionalSaude
 {
 private:
@@ -26,6 +26,8 @@ public:
     std::string getRegistroProfissional() const;
 
     void setAvailableHours(const std::string &availableHours);
+    static void adicionarProfissional(ProfissionalSaude *profissionais[], int &nProfissionais, Especialidade *especialidades[], int &nEspecialidades);
+    void printarDados() const;
 };
 
 #endif

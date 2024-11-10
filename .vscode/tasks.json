@@ -12,6 +12,11 @@
                 "ProfissionalSaude/ProfissionalSaude.cpp",
                 "Consulta/Consulta.cpp",
                 "Especialidade/Especialidade.cpp",
+                "Equipamento/Equipamento.cpp",
+                "Exame/Exame.cpp",
+                "Fornecedor/Fornecedor.cpp",
+                "Pagamento/Pagamento.cpp",
+                "Sala/Sala.cpp",
                 "-o",
                 "main"
             ],

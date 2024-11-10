@@ -6,19 +6,25 @@
 #include "../Paciente/Paciente.h"
 #include "../ProfissionalSaude/ProfissionalSaude.h"
 #include "../Especialidade/Especialidade.h"
-#include "../Consulta/Consulta.h" // Inclusão da classe Consulta
+#include "../Consulta/Consulta.h"
+#include "../Equipamento/Equipamento.h"
+#include "../Sala/Sala.h"
 
 class Clinica
 {
 private:
     Paciente *pacientes[100];
     ProfissionalSaude *profissionais[100];
-    Consulta *consultas[100];           // Array para armazenar consultas
-    Especialidade *especialidades[100]; // Array para armazenar especialidades
+    Consulta *consultas[100];
+    Especialidade *especialidades[100];
+    Equipamento *equipamentos[100];
+    Sala *salas[100];
     int nPacientes = 0;
     int nProfissionais = 0;
     int nConsultas = 0;
     int nEspecialidades = 0;
+    int nEquipamentos = 0;
+    int nSalas = 0;
 
 public:
     void adicionarPaciente();
@@ -34,10 +40,14 @@ public:
     void menuConsulta();
     void adicionarProfissional();
     void printarProfissionais() const;
-    void adicionarConsulta();      // Função para adicionar consulta
-    void printarConsultas() const; // Função para imprimir consultas
-    void start();                  // Menu para interagir com o sistema
-    ~Clinica();                    // Destrutor para liberar a memória
+    void adicionarConsulta();
+    void printarConsultas() const;
+    void menuSala();
+    void menuPagamento();
+    void menuFornecedor();
+    void menuEquipamento();
+    void start();
+    ~Clinica();
 };
 
 #endif
