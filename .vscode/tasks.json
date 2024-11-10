@@ -1,0 +1,51 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Clinic Manager",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.cpp",
+                "Clinica/Clinica.cpp",
+                "Paciente/Paciente.cpp",
+                "ProfissionalSaude/ProfissionalSaude.cpp",
+                "Consulta/Consulta.cpp",
+                "Especialidade/Especialidade.cpp",
+                "-o",
+                "main"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compiles all the C++ files and links them together"
+        },
+        {
+            "label": "Build and Run Tests",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "test_runner.cpp",
+                "Clinica/Clinica.cpp",
+                "Paciente/Paciente.cpp",
+                "ProfissionalSaude/ProfissionalSaude.cpp",
+                "Consulta/Consulta.cpp",
+                "Especialidade/Especialidade.cpp",
+                "-o",
+                "test_runner"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compiles all test files and links them into a test runner executable"
+        }
+    ]
+}
