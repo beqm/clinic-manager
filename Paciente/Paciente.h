@@ -34,7 +34,6 @@ public:
     void definirEndereco(const std::string &endereco);
 
     void printarDados() const;
-    static void adicionarPaciente(Paciente *pacientes[], int &nPacientes);
 };
 
 #endif

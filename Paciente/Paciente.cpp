@@ -20,47 +20,6 @@ void Paciente::definirTelefone(const std::string &telefone) { this->telefone = t
 void Paciente::definirEmail(const std::string &email) { this->email = email; }
 void Paciente::definirEndereco(const std::string &endereco) { this->endereco = endereco; }
 
-// Função para cadastrar um novo paciente
-void Paciente::adicionarPaciente(Paciente *pacientes[], int &nPacientes)
-{
-  std::string nome, cpf, dataNascimento, telefone, email, endereco;
-
-  std::cin.ignore(); // Limpar o buffer do cin
-
-  std::cout << "Nome: ";
-  std::getline(std::cin, nome);
-
-  std::cout << "CPF: ";
-  std::getline(std::cin, cpf);
-
-  // Verifica se já existe um paciente com o mesmo CPF
-  for (int i = 0; i < nPacientes; i++)
-  {
-    if (pacientes[i]->getCPF() == cpf)
-    {
-      std::cout << "Ja existe um paciente com este CPF.\n";
-      return; // Sai da função sem adicionar um novo paciente
-    }
-  }
-
-  std::cout << "Data de nascimento: ";
-  std::getline(std::cin, dataNascimento);
-
-  std::cout << "Telefone: ";
-  std::getline(std::cin, telefone);
-
-  std::cout << "Email: ";
-  std::getline(std::cin, email);
-
-  std::cout << "Endereco: ";
-  std::getline(std::cin, endereco);
-
-  // Cria um novo objeto Paciente e armazena no array de pacientes
-  pacientes[nPacientes] = new Paciente(nome, cpf, dataNascimento, telefone, email, endereco);
-  nPacientes++; // Incrementa o número de pacientes
-  std::cout << "Paciente adicionado na lista de pacientes.\n";
-}
-
 // Método para imprimir os dados do paciente
 void Paciente::printarDados() const
 {
@@ -69,5 +28,5 @@ void Paciente::printarDados() const
   std::cout << "Data de Nascimento: " << dataNascimento << std::endl;
   std::cout << "Telefone: " << telefone << std::endl;
   std::cout << "Email: " << email << std::endl;
-  std::cout << "Endereço: " << endereco << std::endl;
+  std::cout << "Endereco: " << endereco << std::endl;
 }

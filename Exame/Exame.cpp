@@ -1,7 +1,3 @@
-//
-// Created by wolne on 10/11/2024.
-//
-
 #include "Exame.h"
 
 #include <string>
@@ -56,10 +52,10 @@ void Exame::exibirDados() const
     std::cout << "Descrição: " << descricao << std::endl;
     std::cout << "Data: " << formatarData(data) << std::endl;
     std::cout << "\nDados do Paciente:" << std::endl;
-    std::cout << "  CPF: " << paciente.getCPF() << std::endl;
+    std::cout << "  ID: " << paciente.getCPF() << std::endl;
     std::cout << "  Nome: " << paciente.getNome() << std::endl;
     std::cout << "\nMédico Responsável:" << std::endl;
-    std::cout << "  CPF: " << profissional.getCPF() << std::endl;
+    std::cout << "  ID: " << profissional.getCPF() << std::endl;
     std::cout << "  Nome: " << profissional.getNome() << std::endl;
     std::cout << "\nResultado: " << resultado << std::endl;
 }

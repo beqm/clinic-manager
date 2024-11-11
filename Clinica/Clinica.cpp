@@ -1,127 +1,15 @@
 #include "Clinica.h"
 #include <iostream>
-
-// Função para imprimir todos os pacientes cadastrados
-void Clinica::printarPacientes() const
-{
-    if (nPacientes == 0)
-    {
-        std::cout << "Nenhum paciente cadastrado.\n";
-        return;
-    }
-
-    for (int i = 0; i < nPacientes; i++)
-    {
-        // Exibe o CPF e o nome de cada paciente
-        pacientes[i]->printarDados();
-    }
-}
-
-// Função para imprimir todos os profissionais cadastrados
-void Clinica::printarProfissionais() const
-{
-    if (nProfissionais == 0)
-    {
-        std::cout << "Nenhum profissional cadastrado.\n";
-        return;
-    }
-
-    for (int i = 0; i < nProfissionais; i++)
-    {
-        // Exibe o CPF e o nome de cada profissional
-        profissionais[i]->printarDados();
-    }
-}
-
-// Função para imprimir todas as consultas cadastradas
-void Clinica::printarConsultas() const
-{
-    if (nConsultas == 0)
-    {
-        std::cout << "Nenhuma consulta cadastrada.\n";
-        return;
-    }
-
-    for (int i = 0; i < nConsultas; i++)
-    {
-        consultas[nConsultas]->printarDados();
-    }
-}
-
-// Função para buscar um paciente por CPF e exibir suas informações
-void Clinica::buscarPacientePorCPF() const
-{
-    std::string cpf;
-    std::cout << "Digite o CPF do paciente: ";
-    std::cin >> cpf;
-
-    for (int i = 0; i < nPacientes; i++)
-    {
-        if (pacientes[i]->getCPF() == cpf)
-        {
-            std::cout << "\nPaciente encontrado:\n";
-            std::cout << "Nome: " << pacientes[i]->getNome() << "\n";
-            std::cout << "CPF: " << pacientes[i]->getCPF() << "\n";
-            std::cout << "Data de Nascimento: " << pacientes[i]->getDataNascimento() << "\n";
-            std::cout << "Telefone: " << pacientes[i]->getTelefone() << "\n";
-            std::cout << "Email: " << pacientes[i]->getEmail() << "\n";
-            std::cout << "Endereco: " << pacientes[i]->getEndereco() << "\n";
-            return;
-        }
-    }
-
-    std::cout << "Paciente com o CPF " << cpf << " nao encontrado.\n";
-}
-
-// Função para buscar um profissional por CPF e exibir suas informações
-void Clinica::buscarProfissionalPorCPF() const
-{
-    std::string cpf;
-    std::cout << "Digite o CPF do profissional: ";
-    std::cin >> cpf;
-
-    for (int i = 0; i < nProfissionais; i++)
-    {
-        if (profissionais[i]->getCPF() == cpf)
-        {
-            std::cout << "\nProfissional encontrado:\n";
-            std::cout << "Nome: " << profissionais[i]->getNome() << "\n";
-            std::cout << "CPF: " << profissionais[i]->getCPF() << "\n";
-            std::cout << "Especialidade: " << profissionais[i]->getEspecialidade() << "\n";
-            std::cout << "Telefone: " << profissionais[i]->getTelefone() << "\n";
-            std::cout << "Email: " << profissionais[i]->getEmail() << "\n";
-            std::cout << "Registro Profissional: " << profissionais[i]->getRegistroProfissional() << "\n";
-            return;
-        }
-    }
-
-    std::cout << "Profissional com o CPF " << cpf << " nao encontrado.\n";
-}
-
-// Função para buscar uma consulta por sala e exibir suas informações
-void Clinica::buscarConsultaPorSala() const
-{
-    std::string sala;
-    std::cout << "Digite o nome da sala: ";
-    std::cin >> sala;
-
-    for (int i = 0; i < nConsultas; i++)
-    {
-        if (consultas[i]->getSala() == sala)
-        {
-            std::cout << "\nConsulta encontrada na sala " << sala << ":\n";
-            std::cout << "Data: " << consultas[i]->getData() << "\n";
-            std::cout << "Hora: " << consultas[i]->getHora() << "\n";
-            std::cout << "Paciente: " << consultas[i]->getPaciente().getNome() << " (CPF: " << consultas[i]->getPaciente().getCPF() << ")\n";
-            std::cout << "Profissional: " << consultas[i]->getProfissional().getNome() << " (CPF: " << consultas[i]->getProfissional().getCPF() << ")\n";
-            std::cout << "Sala: " << consultas[i]->getSala() << "\n";
-            std::cout << "Status: " << consultas[i]->getStatus() << "\n";
-            return;
-        }
-    }
-
-    std::cout << "Consulta na sala " << sala << " nao encontrada.\n";
-}
+#include <limits>
+#include "../Especialidade/especialidade-opcoes.h"
+#include "../Paciente/paciente-opcoes.h"
+#include "../Consulta/consulta-opcoes.h"
+#include "../ProfissionalSaude/profissional-opcoes.h"
+#include "../Equipamento/equipamento-opcoes.h"
+#include "../Fornecedor/fornecedor-opcoes.h"
+#include "../Sala/sala-opcoes.h"
+#include "../Exame/exame-opcoes.h"
+#include "../Pagamento/pagamento-opcoes.h"
 
 // Função para o submenu Paciente
 void Clinica::menuPaciente()
@@ -135,18 +23,24 @@ void Clinica::menuPaciente()
         std::cout << "[3] Buscar paciente por CPF\n";
         std::cout << "[4] Voltar ao menu principal\n";
         std::cout << "Opcao: ";
-        std::cin >> pacienteOpcao;
 
+        while (!(std::cin >> pacienteOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
         switch (pacienteOpcao)
         {
         case 1:
-            Paciente::adicionarPaciente(pacientes, nPacientes);
+            adicionarPaciente(pacientes, nPacientes);
             break;
         case 2:
-            printarPacientes();
+            printarPacientes(pacientes, nPacientes);
             break;
         case 3:
-            buscarPacientePorCPF();
+            buscarPacientePorCPF(pacientes, nPacientes);
             break;
         case 4:
             std::cout << "Voltando ao menu principal...\n";
@@ -170,18 +64,25 @@ void Clinica::menuProfissional()
         std::cout << "[3] Buscar profissional por CPF\n";
         std::cout << "[4] Voltar ao menu principal\n";
         std::cout << "Opcao: ";
-        std::cin >> profissionalOpcao;
+
+        while (!(std::cin >> profissionalOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
 
         switch (profissionalOpcao)
         {
         case 1:
-            ProfissionalSaude::adicionarProfissional(profissionais, nProfissionais, especialidades, nEspecialidades);
+            adicionarProfissional(profissionais, nProfissionais, especialidades, nEspecialidades);
             break;
         case 2:
-            printarProfissionais();
+            printarProfissionais(profissionais, nProfissionais);
             break;
         case 3:
-            buscarProfissionalPorCPF();
+            buscarProfissionalPorCPF(profissionais, nProfissionais);
             break;
         case 4:
             std::cout << "Voltando ao menu principal...\n";
@@ -205,18 +106,25 @@ void Clinica::menuConsulta()
         std::cout << "[3] Buscar consulta por sala\n";
         std::cout << "[4] Voltar ao menu principal\n";
         std::cout << "Opcao: ";
-        std::cin >> consultaOpcao;
+
+        while (!(std::cin >> consultaOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
 
         switch (consultaOpcao)
         {
         case 1:
-            Consulta::adicionarConsulta(pacientes, nPacientes, profissionais, nProfissionais, consultas, nConsultas);
+            adicionarConsulta(pacientes, nPacientes, profissionais, nProfissionais, consultas, nConsultas, salas, nSalas);
             break;
         case 2:
-            printarConsultas();
+            printarConsultas(consultas, nConsultas);
             break;
         case 3:
-            buscarConsultaPorSala();
+            buscarConsultaPorSala(consultas, nConsultas);
             break;
         case 4:
             std::cout << "Voltando ao menu principal...\n";
@@ -226,22 +134,6 @@ void Clinica::menuConsulta()
             break;
         }
     } while (consultaOpcao != 4);
-}
-
-void Clinica::listarEspecialidades() const
-{
-    if (nEspecialidades == 0)
-    {
-        std::cout << "Nao ha especialidades cadastradas.\n";
-        return;
-    }
-
-    std::cout << "\nLista de Especialidades:\n";
-    for (int i = 0; i < nEspecialidades; i++)
-    {
-        Especialidade *especialidade = especialidades[i];
-        especialidade->printarDados();
-    }
 }
 
 // Função para o submenu Especialidade
@@ -255,15 +147,22 @@ void Clinica::menuEspecialidade()
         std::cout << "[2] Listar especialidades\n";
         std::cout << "[3] Voltar ao menu principal\n";
         std::cout << "Opcao: ";
-        std::cin >> especialidadeOpcao;
+
+        while (!(std::cin >> especialidadeOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
 
         switch (especialidadeOpcao)
         {
         case 1:
-            Especialidade::adicionarEspecialidade(especialidades, nEspecialidades);
+            adicionarEspecialidade(especialidades, nEspecialidades);
             break;
         case 2:
-            listarEspecialidades();
+            listarEspecialidades(especialidades, nEspecialidades);
             break;
         case 3:
             std::cout << "Voltando ao menu principal...\n";
@@ -278,25 +177,198 @@ void Clinica::menuEspecialidade()
 // Função para o submenu Especialidade
 void Clinica::menuEquipamento()
 {
-    return;
+    int equipamentoOpcao;
+    do
+    {
+        std::cout << "\n[Menu Equipamento]\n";
+        std::cout << "[1] Adicionar equipamento\n";
+        std::cout << "[2] Listar equipamentos\n";
+        std::cout << "[3] Voltar ao menu principal\n";
+        std::cout << "Opcao: ";
+
+        while (!(std::cin >> equipamentoOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
+
+        switch (equipamentoOpcao)
+        {
+        case 1:
+            cadastrarEquipamento(fornecedores, nFornecedores, equipamentos, nEquipamentos);
+            break;
+        case 2:
+            listarEquipamentos(equipamentos, nEquipamentos);
+            break;
+        case 3:
+            adicionarEquipamentoSala(salas, nSalas, equipamentos, nEquipamentos);
+            break;
+        case 4:
+            std::cout << "Voltando ao menu principal...\n";
+            break;
+        default:
+            std::cout << "Opcao invalida. Tente novamente.\n";
+            break;
+        }
+    } while (equipamentoOpcao != 3);
 }
 
 // Função para o submenu Especialidade
 void Clinica::menuSala()
 {
-    return;
+    int salaOpcao;
+    do
+    {
+        std::cout << "\n[Menu Sala]\n";
+        std::cout << "[1] Adicionar sala\n";
+        std::cout << "[2] Listar salas\n";
+        std::cout << "[3] Adicionar equipamentos a salas\n";
+        std::cout << "[4] Voltar ao menu principal\n";
+        std::cout << "Opcao: ";
+
+        // Verificação da entrada
+        while (!(std::cin >> salaOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
+
+        switch (salaOpcao)
+        {
+        case 1:
+            cadastrarSala(salas, nSalas);
+            break;
+        case 2:
+            listarSalas(salas, nSalas);
+            break;
+        case 3:
+            adicionarEquipamentoSala(salas, nSalas, equipamentos, nEquipamentos);
+            break;
+        case 4:
+            std::cout << "Voltando ao menu principal...\n";
+            break;
+        default:
+            std::cout << "Opcao invalida. Tente novamente.\n";
+            break;
+        }
+    } while (salaOpcao != 4);
 }
 
 // Função para o submenu Especialidade
 void Clinica::menuFornecedor()
 {
-    return;
+    int fornecedorOpcao;
+    do
+    {
+        std::cout << "\n[Menu Fornecedor]\n";
+        std::cout << "[1] Adicionar Fornecedor\n";
+        std::cout << "[2] Listar fornecedores\n";
+        std::cout << "[3] Voltar ao menu principal\n";
+        std::cout << "Opcao: ";
+
+        // Verificação da entrada
+        while (!(std::cin >> fornecedorOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
+
+        switch (fornecedorOpcao)
+        {
+        case 1:
+            cadastrarFornecedor(fornecedores, nFornecedores);
+            break;
+        case 2:
+            listarFornecedores(fornecedores, nFornecedores);
+            break;
+        case 3:
+            std::cout << "Voltando ao menu principal...\n";
+            break;
+        default:
+            std::cout << "Opcao invalida. Tente novamente.\n";
+            break;
+        }
+    } while (fornecedorOpcao != 3);
 }
 
-// Função para o submenu Especialidade
+void Clinica::menuExame()
+{
+    int fornecedorOpcao;
+    do
+    {
+        std::cout << "\n[Menu Exame]\n";
+        std::cout << "[1] Cadastrar Exame\n";
+        std::cout << "[2] Listar Exames\n";
+        std::cout << "[3] Voltar ao menu principal\n";
+        std::cout << "Opcao: ";
+
+        // Verificação da entrada
+        while (!(std::cin >> fornecedorOpcao))
+        {
+            // Se a entrada não for válida (não for um número inteiro), limpa o erro e solicita nova entrada
+            std::cin.clear();                                                   // Limpa o erro de falha de entrada
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora os dados restantes no buffer
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
+
+        switch (fornecedorOpcao)
+        {
+        case 1:
+            cadastrarExame(exames, nExames, pacientes, nPacientes, profissionais, nProfissionais);
+            break;
+        case 2:
+            listarExames(exames, nExames);
+            break;
+        case 3:
+            std::cout << "Voltando ao menu principal...\n";
+            break;
+        default:
+            std::cout << "Opcao invalida. Tente novamente.\n";
+            break;
+        }
+    } while (fornecedorOpcao != 3);
+}
+
 void Clinica::menuPagamento()
 {
-    return;
+    int fornecedorOpcao;
+    do
+    {
+        std::cout << "\n[Menu Pagamento]\n";
+        std::cout << "[1] Cadastrar Pagamento\n";
+        std::cout << "[2] Listar Pagamentos\n";
+        std::cout << "[3] Voltar ao menu principal\n";
+        std::cout << "Opcao: ";
+
+        while (!(std::cin >> fornecedorOpcao))
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Entrada invalida. Por favor, insira um numero: ";
+        }
+
+        switch (fornecedorOpcao)
+        {
+        case 1:
+            cadastrarPagamento(pagamentos, nPagamentos, pacientes, nPacientes);
+            break;
+        case 2:
+            listarPagamentos(pagamentos, nPagamentos);
+            break;
+        case 3:
+            std::cout << "Voltando ao menu principal...\n";
+            break;
+        default:
+            std::cout << "Opcao invalida. Tente novamente.\n";
+            break;
+        }
+    } while (fornecedorOpcao != 3);
 }
 
 // Função para iniciar o sistema da clínica e exibir o menu principal
@@ -313,6 +385,11 @@ void Clinica::start()
         std::cout << "[2] Profissional\n";
         std::cout << "[3] Consulta\n";
         std::cout << "[4] Especialidade\n";
+        std::cout << "[5] Sala\n";
+        std::cout << "[6] Equipamento\n";
+        std::cout << "[7] Fornecedor\n";
+        std::cout << "[8] Exame\n";
+        std::cout << "[9] Pagamentos\n";
         std::cout << "[10] Sair\n";
 
         std::cout << "Opcao: ";
@@ -346,17 +423,19 @@ void Clinica::start()
             menuEspecialidade();
             break;
         case 5:
-            menuEquipamento();
+            menuSala();
             break;
         case 6:
-            menuSala();
+            menuEquipamento();
             break;
         case 7:
             menuFornecedor();
             break;
         case 8:
-            menuPagamento();
+            menuExame();
             break;
+        case 9:
+            menuPagamento();
         case 10:
             std::cout << "Saindo do sistema...\n";
             break;

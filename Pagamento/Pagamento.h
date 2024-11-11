@@ -2,12 +2,13 @@
 #define PAGAMENTO_H
 #include <ctime>
 #include <string>
+#include "../Paciente/Paciente.h"
 
 class Pagamento
 {
 private:
     int idDoPagamento;
-    int idDoPaciente;
+    Paciente paciente;
     double valorTotal;
     std::string descricaoDoServico;
     std::string metodoDePagamento;
@@ -15,10 +16,11 @@ private:
     bool statudDoPagamento;
 
 public:
-    Pagamento(int bId, int pId, double amount, std::string description);
+    Pagamento();
+    Pagamento(int bId, Paciente pac, double amount, std::string description);
 
     int getIdDoPagamento() const;
-    int getIdDoPaciente() const;
+    Paciente getPaciente() const;
     double getValorTotal() const;
     std::string getDescricaoDoServico() const;
     std::string GetMetodoDePagamento() const;
@@ -30,7 +32,7 @@ public:
 
     std::string formatarData(const time_t& date) const;
 
-    void imprimitDetalhesDoPagamento() const;
+    void imprimirDetalhesDoPagamento() const;
 };
 
 #endif //PAGAMENTO_H

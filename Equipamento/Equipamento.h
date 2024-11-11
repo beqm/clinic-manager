@@ -18,11 +18,11 @@ private:
 public:
     Equipamento();
 
-    Equipamento(const std::string &nome,
-                const std::string &tipo,
-                const std::string &fabricante,
-                const std::string &frequenciaDeManutencao,
-                const Fornecedor &fornecedor);
+    Equipamento(const std::string& nome,
+                const std::string& tipo,
+                const std::string& fabricante,
+                const std::string& frequenciaDeManutencao,
+                const Fornecedor& fornecedor);
 
     std::string getNome() const;
     std::string getTipo() const;
@@ -31,16 +31,16 @@ public:
     time_t getDataDeAquisicao() const;
     Fornecedor getFornecedor() const;
 
-    void setNome(const std::string &novoNome);
-    void setTipo(const std::string &novoTipo);
-    void setFabricante(const std::string &novoFabricante);
-    void setFrequenciaDeManutencao(const std::string &novaFrequencia);
-    void setFornecedor(const Fornecedor &novoFornecedor);
-    void setDataDeAquisicao(const time_t &novaData);
+    void setNome(const std::string& novoNome);
+    void setTipo(const std::string& novoTipo);
+    void setFabricante(const std::string& novoFabricante);
+    void setFrequenciaDeManutencao(const std::string& novaFrequencia);
+    void setFornecedor(const Fornecedor& novoFornecedor);
+    void setDataDeAquisicao(const time_t& novaData);
 
-    std::string formatarData(const time_t &data) const;
+    std::string formatarData(const time_t& data) const;
 
     void exibirDados() const;
 };
 
-#endif // EQUIPAMENTO_H
+#endif //EQUIPAMENTO_H

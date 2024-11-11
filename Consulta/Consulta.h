@@ -2,8 +2,8 @@
 #define CONSULTA_H
 
 #include <string>
-#include "../Paciente/Paciente.h"                   // Inclusão da classe Paciente
-#include "../ProfissionalSaude/ProfissionalSaude.h" // Inclusão da classe ProfissionalSaude
+#include "../Paciente/Paciente.h"
+#include "../ProfissionalSaude/ProfissionalSaude.h"
 
 class Consulta
 {
@@ -28,7 +28,6 @@ public:
     std::string getNotas() const;
 
     void setStatus(const std::string &status);
-    static void adicionarConsulta(Paciente *pacientes[], int &nPacientes, ProfissionalSaude *profissionais[], int &nProfissionais, Consulta *consultas[], int &nConsultas);
     void printarDados() const;
 };
 

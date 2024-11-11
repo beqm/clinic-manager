@@ -9,14 +9,23 @@
                 "main.cpp",
                 "Clinica/Clinica.cpp",
                 "Paciente/Paciente.cpp",
+                "Paciente/paciente-opcoes.cpp",
                 "ProfissionalSaude/ProfissionalSaude.cpp",
+                "ProfissionalSaude/profissional-opcoes.cpp",
                 "Consulta/Consulta.cpp",
+                "Consulta/consulta-opcoes.cpp",
                 "Especialidade/Especialidade.cpp",
+                "Especialidade/especialidade-opcoes.cpp",
                 "Equipamento/Equipamento.cpp",
+                "Equipamento/equipamento-opcoes.cpp",
                 "Exame/Exame.cpp",
+                "Exame/exame-opcoes.cpp",
                 "Fornecedor/Fornecedor.cpp",
+                "Fornecedor/fornecedor-opcoes.cpp",
                 "Pagamento/Pagamento.cpp",
+                "Pagamento/pagamento-opcoes.cpp",
                 "Sala/Sala.cpp",
+                "Sala/sala-opcoes.cpp",
                 "-o",
                 "main"
             ],
@@ -28,29 +37,6 @@
                 "$gcc"
             ],
             "detail": "Compiles all the C++ files and links them together"
-        },
-        {
-            "label": "Build and Run Tests",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "test_runner.cpp",
-                "Clinica/Clinica.cpp",
-                "Paciente/Paciente.cpp",
-                "ProfissionalSaude/ProfissionalSaude.cpp",
-                "Consulta/Consulta.cpp",
-                "Especialidade/Especialidade.cpp",
-                "-o",
-                "test_runner"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Compiles all test files and links them into a test runner executable"
         }
     ]
 }

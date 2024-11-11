@@ -1,6 +1,8 @@
 #include "Sala.h"
 #include "../Equipamento/Equipamento.h"
 
+Sala::Sala() {}
+
 Sala::Sala(const std::string &numero,
            int andar,
            const std::string &tipo,
@@ -66,10 +68,10 @@ int Sala::buscarEquipamento(const std::string &nome) const
 
 void Sala::exibirDados() const
 {
-    std::cout << "Número: " << numero << std::endl;
+    std::cout << "Numero: " << numero << std::endl;
     std::cout << "Andar: " << andar << std::endl;
     std::cout << "Tipo: " << tipo << std::endl;
-    std::cout << "Disponibilidade: " << (disponibilidade ? "Disponível" : "Ocupada") << std::endl;
+    std::cout << "Disponibilidade: " << (disponibilidade ? "Disponivel" : "Ocupada") << std::endl;
     std::cout << "Capacidade: " << capacidade << " pessoas" << std::endl;
 
     std::cout << "\nEquipamentos (" << quantidadeEquipamentos << "):" << std::endl;

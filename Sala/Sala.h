@@ -16,9 +16,10 @@ private:
     int quantidadeEquipamentos;
 
 public:
-    Sala(const std::string &numero,
+    Sala();
+    Sala(const std::string& numero,
          int andar,
-         const std::string &tipo,
+         const std::string& tipo,
          int capacidade);
 
     std::string getNumero() const;
@@ -28,19 +29,19 @@ public:
     int getCapacidade() const;
     int getQuantidadeEquipamentos() const;
 
-    void setNumero(const std::string &novoNumero);
+    void setNumero(const std::string& novoNumero);
     void setAndar(int novoAndar);
-    void setTipo(const std::string &novoTipo);
+    void setTipo(const std::string& novoTipo);
     void setDisponibilidade(bool novaDisponibilidade);
     void setCapacidade(int novaCapacidade);
 
-    bool adicionarEquipamento(const Equipamento &equipamento);
+    bool adicionarEquipamento(const Equipamento& equipamento);
 
     bool removerEquipamento(int indice);
 
-    int buscarEquipamento(const std::string &nome) const;
+    int buscarEquipamento(const std::string& nome) const;
 
     void exibirDados() const;
 };
 
-#endif // SALA_H
+#endif //SALA_H

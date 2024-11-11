@@ -8,7 +8,10 @@
 #include "../Especialidade/Especialidade.h"
 #include "../Consulta/Consulta.h"
 #include "../Equipamento/Equipamento.h"
+#include "../Fornecedor/Fornecedor.h"
+#include "../Pagamento/Pagamento.h"
 #include "../Sala/Sala.h"
+#include "../Exame/Exame.h"
 
 class Clinica
 {
@@ -18,34 +21,30 @@ private:
     Consulta *consultas[100];
     Especialidade *especialidades[100];
     Equipamento *equipamentos[100];
+    Fornecedor *fornecedores[100];
+    Pagamento *pagamentos[100];
+    Exame *exames[100];
     Sala *salas[100];
     int nPacientes = 0;
     int nProfissionais = 0;
     int nConsultas = 0;
     int nEspecialidades = 0;
     int nEquipamentos = 0;
+    int nFornecedores = 0;
+    int nPagamentos = 0;
     int nSalas = 0;
+    int nExames = 0;
 
 public:
-    void adicionarPaciente();
-    void printarPacientes() const;
-    void buscarConsultaPorSala() const;
-    void buscarProfissionalPorCPF() const;
-    void buscarPacientePorCPF() const;
     void menuPaciente();
-    void adicionarEspecialidade();
-    void listarEspecialidades() const;
     void menuEspecialidade();
     void menuProfissional();
     void menuConsulta();
-    void adicionarProfissional();
-    void printarProfissionais() const;
-    void adicionarConsulta();
-    void printarConsultas() const;
     void menuSala();
     void menuPagamento();
     void menuFornecedor();
     void menuEquipamento();
+    void menuExame();
     void start();
     ~Clinica();
 };
