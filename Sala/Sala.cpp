@@ -1,5 +1,7 @@
 #include "Sala.h"
-#include "Equipamento.h"
+#include "../Equipamento/Equipamento.h"
+
+Sala::Sala() {}
 
 Sala::Sala(const std::string& numero,
            int andar,

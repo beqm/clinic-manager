@@ -2,9 +2,11 @@
 #include <string>
 #include <ctime>
 #include <iostream>
-#include "Fornecedor.h"
+#include "../Fornecedor/Fornecedor.h"
 
-Equipamento::Equipamento() {}
+Equipamento::Equipamento()
+{
+}
 
 Equipamento::Equipamento(const std::string& nome,
                          const std::string& tipo,
@@ -54,6 +56,5 @@ void Equipamento::exibirDados() const
     std::cout << "Fabricante: " << fabricante << std::endl;
     std::cout << "Frequência de Manutenção: " << frequenciaDeManutencao << std::endl;
     std::cout << "Data de Aquisição: " << formatarData(dataDeAquisicao) << std::endl;
-    std::cout << "\nDados do Fornecedor:" << std::endl;
-    fornecedor.exibirDados();
+    std::cout << "Fornecedor:" << fornecedor.getNome() << std::endl;
 }

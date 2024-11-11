@@ -3,8 +3,8 @@
 #include <string>
 #include <ctime>
 #include <iostream>
-#include "ProfissionalSaude.h"
-#include "Paciente.h"
+#include "../ProfissionalSaude/ProfissionalSaude.h"
+#include "../Paciente/Paciente.h"
 
 class Exame {
 private:
@@ -16,6 +16,8 @@ private:
     std::string resultado;
 
 public:
+    Exame();
+
     Exame(const std::string& tipo,
           const std::string& descricao,
           const Paciente& paciente,

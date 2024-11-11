@@ -2,7 +2,7 @@
 #define SALA_H
 #include <string>
 #include <iostream>
-#include "Equipamento.h"
+#include "../Equipamento/Equipamento.h"
 
 class Sala
 {
@@ -16,6 +16,7 @@ private:
     int quantidadeEquipamentos;
 
 public:
+    Sala();
     Sala(const std::string& numero,
          int andar,
          const std::string& tipo,

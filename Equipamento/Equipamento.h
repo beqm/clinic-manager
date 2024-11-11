@@ -3,7 +3,7 @@
 #include <string>
 #include <ctime>
 #include <iostream>
-#include "Fornecedor.h"
+#include "../Fornecedor/Fornecedor.h"
 
 class Equipamento
 {
